@@ -155,7 +155,25 @@ It contains its own **model, controller, services, and routes**, maintaining a c
   - Takes the `res` (response object) and `data` (response details) as parameters.
   - Sets the HTTP status code using `data.statusCode`.
   - Returns a JSON object containing:
+
     - **`success`** – Boolean indicating the operation's success or failure.
     - **`message`** – Descriptive message about the response.
     - **`meta`** – (Optional) Additional metadata for paginated responses or extra details.
     - **`data`** – The actual response payload.
+
+    - **`jwtHelper.js`** – JWT (JSON Web Token) utility functions
+
+  - **Handles token generation and verification** for authentication and authorization.
+  - Uses the secret key from `process.env.JWT_SECRET_KEY`.
+
+  #### 🔹 `generateToken(_id, role)`
+
+  - Generates a JWT for a user based on their `_id` and `role`.
+  - Uses `jwt.sign()` to create a token with an expiration time of **1 hour**.
+  - Returns the generated token.
+
+  #### 🔹 `verifyToken(token)`
+
+  - Decodes and verifies a JWT using `jwt.verify()`.
+  - If the token is **valid**, it returns the decoded payload (containing `_id` and `role`).
+  - If the token is **invalid** or expired, it returns `null`.
