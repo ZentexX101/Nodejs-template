@@ -177,3 +177,28 @@ It contains its own **model, controller, services, and routes**, maintaining a c
   - Decodes and verifies a JWT using `jwt.verify()`.
   - If the token is **valid**, it returns the decoded payload (containing `_id` and `role`).
   - If the token is **invalid** or expired, it returns `null`.
+
+📄 server.js (Entry Point)
+
+- **`server.js`** – Application entry point
+
+  - Initializes the **MERN Backend Template** by connecting to the database and starting the server.
+
+  #### 🔹 `main()` – The main function
+
+  - **Establishes a database connection** using `mongoose.connect(config.database_url)`.
+  - If successful, it **starts the Express server** on the specified port.
+  - Logs a message indicating that the server is running.
+  - If an error occurs during the connection process, it logs the error.
+
+  #### 🔹 `server` – Express server instance
+
+  - Created using `app.listen(config.port, callback)`.
+  - Ensures the server starts only after a successful database connection.
+
+  #### 📜 **Execution Flow**
+
+  1. The `main()` function runs immediately when the file is executed.
+  2. The database connection is established.
+  3. If the connection succeeds, the Express server starts listening on the configured port.
+  4. If there’s an error (e.g., database connection failure), it is logged in the console.
