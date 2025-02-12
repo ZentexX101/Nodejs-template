@@ -302,3 +302,5 @@ It contains its own **model, controller, services, and routes**, maintaining a c
 4. If a route is not found, the `notFoundErrorHandler` middleware catches it and returns a `404` response.
 
 <br>
+
+![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)
