@@ -2,15 +2,15 @@
 
 ## Overview
 
-This backend template provides a robust foundation for building secure and scalable Node.js applications using Express and MongoDB. It includes authentication, database integration, email handling, and payment processing, making it ideal for SaaS applications, e-commerce platforms, and other web services.
+This backend template provides a robust foundation for building secure and scalable Node.js applications using Express and MongoDB. It includes authentication, database integration, making it ideal for web services.
 
 ## Features
 
 - ✅ **Authentication** (JWT)
 - ✅ **Database** (MongoDB)
 - ✅ **ORM/ODM** (Mongoose)
-- ✅ **Email Services** (Nodemailer)
-- ✅ **Payment Processing** (Stripe)
+<!-- - ✅ **Email Services** (Nodemailer)
+- ✅ **Payment Processing** (Stripe) -->
 - ✅ **API Standardization** (Http status codes)
 
 ## Technologies Used
@@ -22,7 +22,7 @@ This backend template provides a robust foundation for building secure and scala
 - [JWT](https://jwt.io/) - Secure authentication and authorization for user management.
 - [dotenv](https://www.npmjs.com/package/dotenv) - Environment variables
 - [http status codes](https://www.npmjs.com/package/http-status-codes) - Standardized response status codes for API responses.
-- [Nodemailer](https://nodemailer.com/) - Email service for notifications, verifications, and password resets.
+<!-- - [Nodemailer](https://nodemailer.com/) - Email service for notifications, verifications, and password resets. -->
 - [CORS](https://www.npmjs.com/package/cors) - Middleware to manage cross-origin resource sharing.
 
 ## Run Locally
@@ -61,20 +61,23 @@ npm start
 /src
 │-- config/          # Application configuration files (environment variables, DB settings)
 │-- middlewares/     # Express middlewares (Authentication, Logging, Error handling)
-│-- modules/ # Feature-based modules (Encapsulated routes, controllers, services, and models)
-│ ├── test/ # Example module
-│ │ ├── test.model.js # Mongoose schema for Test
-│ │ ├── test.controller.js # Handles HTTP requests & responses
-│ │ ├── test.services.js # Business logic for Test
-│ │ ├── test.routes.js # API endpoints for Blog
+│-- modules/         # Feature-based modules (Encapsulated routes, controllers, services, and models)
+│ ├── test/          # Example module
+│ │ ├── test.model.js  # Mongoose schema for Test
+│ │ ├── test.controller.js  # Handles HTTP requests & responses
+│ │ ├── test.services.js  # Business logic for Test
+│ │ ├── test.routes.js  # API endpoints for Test
+│-- routes/ index.js    # API routes setup
 │-- utils/           # Helper functions (Validation, Formatting, Error handlers)
-│-- server.js # Entry point (Initializes server)
-│-- package.json # Dependencies & scripts
-│-- .env # Environment variables
+
+/server.js           # Entry point (Initializes server)
+package.json         # Dependencies & scripts
+.env                 # Environment variables
+
 
 ```
 
-📁 /config/ (configuration files)
+## 📁 /config/ (configuration files)
 
 - **`config.js`** – Centralized configuration file that loads and manages:
 
@@ -85,7 +88,7 @@ npm start
 
    <br>
 
-📁 /middlewares/ (Middleware Functions)
+## 📁 /middlewares/ (Middleware Functions)
 
 - **`errorHandler.js`** – Global error handler middleware
 
@@ -111,7 +114,7 @@ npm start
 
    <br>
 
-📁 /modules/ test (Modular Structure)
+## 📁 /modules/ test (Modular Structure)
 
 This module follows the **modular monolithic** pattern, ensuring that all related functionalities for the `Test` feature are encapsulated within a single directory.  
 It contains its own **model, controller, services, and routes**, maintaining a clean and scalable architecture.
@@ -140,14 +143,55 @@ It contains its own **model, controller, services, and routes**, maintaining a c
 
   <br>
 
-📁 /utils/ (Utility Functions)
+## 📁 /routes/ index.js
+
+- **`index.js`** – API routes setup
+
+  - This file defines the routing structure for the application, registering various module routes.
+  - **Centralizes route handling** by dynamically linking module routes under specified paths.
+
+#### 🔹 **Route Configuration**
+
+- **`moduleRoutes`**
+
+  - An array of objects, where each object contains:
+    - **`path`**: The base URL path for the module (e.g., `/test`).
+    - **`route`**: The imported route handler for the module (e.g., `TestRoutes`).
+
+- **`router.use(route.path, route.route)`**
+  - Registers the module routes on the Express router.
+  - For each entry in `moduleRoutes`, the route path (e.g., `/test`) is mapped to the corresponding route handler (`TestRoutes`).
+  - This allows for easily adding new modules and their routes by extending the `moduleRoutes` array.
+
+#### 📜 **Execution Flow**
+
+1. The `TestRoutes` for the `/test` path is registered under the main router.
+2. This router is used throughout the application for routing incoming requests to the appropriate module.
+
+<br>
+
+## 📁 /utils/ (Utility Functions)
 
 - **`catchAsync.js`** – Asynchronous error handler middleware
 
   - Wraps asynchronous route handlers and middleware to catch errors automatically.
+  - Eliminates the need for repetitive `try...catch` blocks in async functions.
   - Uses `Promise.resolve()` to handle both synchronous and asynchronous errors.
   - Passes any caught errors to Express's built-in error-handling middleware via `next()`.
-  - Eliminates the need for repetitive `try...catch` blocks in async functions.
+  - Applied to controller functions:
+
+    ```javascript
+    const createTestHandler = catchAsync(async (req, res) => {
+    	const result = await testService.createTest(req.body);
+
+    	sendResponse(res, {
+    		statusCode: StatusCodes.CREATED,
+    		success: true,
+    		message: "Test created successfully",
+    		data: result,
+    	});
+    });
+    ```
 
 - **`sendResponse.js`** – Standardized response handler
 
@@ -155,11 +199,19 @@ It contains its own **model, controller, services, and routes**, maintaining a c
   - Takes the `res` (response object) and `data` (response details) as parameters.
   - Sets the HTTP status code using `data.statusCode`.
   - Returns a JSON object containing:
-
     - **`success`** – Boolean indicating the operation's success or failure.
     - **`message`** – Descriptive message about the response.
     - **`meta`** – (Optional) Additional metadata for paginated responses or extra details.
     - **`data`** – The actual response payload.
+  - Applied to controller functions:
+    ```javascript
+    sendResponse(res, {
+    	statusCode: StatusCodes.CREATED,
+    	success: true,
+    	message: "Test created successfully",
+    	data: result,
+    });
+    ```
 
 - **`jwtHelper.js`** – JWT (JSON Web Token) utility functions
 
@@ -178,7 +230,9 @@ It contains its own **model, controller, services, and routes**, maintaining a c
   - If the token is **valid**, it returns the decoded payload (containing `_id` and `role`).
   - If the token is **invalid** or expired, it returns `null`.
 
-📄 server.js (Entry Point)
+  <br>
+
+## 📄 server.js (Entry Point)
 
 **`server.js`** – Application entry point
 
@@ -202,3 +256,52 @@ It contains its own **model, controller, services, and routes**, maintaining a c
 2. The database connection is established.
 3. If the connection succeeds, the Express server starts listening on the configured port.
 4. If there’s an error (e.g., database connection failure), it is logged in the console.
+
+<br>
+
+## 📄 app.js
+
+- **`app.js`** – Main Express application setup
+
+  - Initializes and configures the Express application.
+  - Sets up middlewares, routes, and error handling.
+
+### 🔹 **Middleware Configuration**
+
+- **`express.json()`**
+
+  - Parses incoming JSON requests, allowing easy access to request body data.
+
+- **`cors()`**
+  - Enables Cross-Origin Resource Sharing (CORS) to allow requests from different origins.
+
+### 🔹 **Routes**
+
+- **`/api/v1/`**
+
+  - The base route for the API, which is linked to the main router defined in `router.js`.
+  - All API endpoints are prefixed with `/api/v1/`.
+
+- **`/`**
+  - A simple route that responds with a welcome message:
+    - `"Welcome to Personal Finance Server V1"`
+
+### 🔹 **Error Handlers**
+
+- **`globalErrorHandler`**
+
+  - A global error handler middleware to catch all errors during the request-response cycle.
+  - It is placed after all routes to handle any uncaught errors.
+
+- **`notFoundErrorHandler`**
+  - A middleware for handling 404 errors when a route is not found.
+  - Responds with a `404` status code and a "Not Found" message.
+
+### 📜 **Execution Flow**
+
+1. The `express.json()` and `cors()` middlewares are applied to handle incoming data and allow cross-origin requests.
+2. Routes for the application are registered under `/api/v1/`.
+3. Any errors that occur in the route handlers are passed to the `globalErrorHandler` middleware.
+4. If a route is not found, the `notFoundErrorHandler` middleware catches it and returns a `404` response.
+
+<br>
