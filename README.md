@@ -1,4 +1,4 @@
-# MERN Backend Template
+# Nodejs Template
 
 ## Overview
 
@@ -9,8 +9,6 @@ This backend template provides a robust foundation for building secure and scala
 - ✅ **Authentication** (JWT)
 - ✅ **Database** (MongoDB)
 - ✅ **ORM/ODM** (Mongoose)
-<!-- - ✅ **Email Services** (Nodemailer)
-- ✅ **Payment Processing** (Stripe) -->
 - ✅ **API Standardization** (Http status codes)
 
 ## Technologies Used
@@ -22,7 +20,6 @@ This backend template provides a robust foundation for building secure and scala
 - [JWT](https://jwt.io/) - Secure authentication and authorization for user management.
 - [dotenv](https://www.npmjs.com/package/dotenv) - Environment variables
 - [http status codes](https://www.npmjs.com/package/http-status-codes) - Standardized response status codes for API responses.
-<!-- - [Nodemailer](https://nodemailer.com/) - Email service for notifications, verifications, and password resets. -->
 - [CORS](https://www.npmjs.com/package/cors) - Middleware to manage cross-origin resource sharing.
 
 ## Run Locally
@@ -30,13 +27,13 @@ This backend template provides a robust foundation for building secure and scala
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/sajid1545/FoundIt-server.git
+git clone https://github.com/ZentexX101/Nodejs-template.git
 ```
 
 #### Go to the project directory
 
 ```bash
-cd .\MERN-Backend-Template\
+cd .\MERN-backend-template\
 ```
 
 ### 2. Install the dependencies
