@@ -79,3 +79,7 @@ npm start
 │-- .env # Environment variables
 
 ```
+
+1️⃣ /config/
+
+- config.js # Application configuration files (environment variables, DB settings)
