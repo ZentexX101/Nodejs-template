@@ -33,7 +33,7 @@ git clone https://github.com/ZentexX101/Nodejs-template.git
 #### Go to the project directory
 
 ```bash
-cd .\MERN-backend-template\
+cd .\nodejs-template\
 ```
 
 ### 2. Install the dependencies
