@@ -1,32 +1,32 @@
-const blogService = require("./blog.services");
+const testService = require("./test.services");
 const catchAsync = require("../../helper/utils/catchAsync");
 const sendResponse = require("../../helper/utils/sendResponse");
 const { StatusCodes } = require("http-status-codes");
 
-const createBlogHandler = catchAsync(async (req, res) => {
-	const result = await blogService.createBlog(req.body);
+const createTestHandler = catchAsync(async (req, res) => {
+	const result = await testService.createTest(req.body);
 
 	sendResponse(res, {
 		statusCode: StatusCodes.CREATED,
 		success: true,
-		message: "Blog created successfully",
+		message: "Test created successfully",
 		data: result,
 	});
 });
 
-const getSingleBlogHandler = catchAsync(async (req, res) => {
+const getSingleTestHandler = catchAsync(async (req, res) => {
 	const id = req.params.id;
-	const result = await blogService.getSingleBlog(id);
+	const result = await testService.getSingleTest(id);
 
 	sendResponse(res, {
 		statusCode: StatusCodes.OK,
 		success: true,
-		message: "Blog retrieved successfully",
+		message: "Test retrieved successfully",
 		data: result,
 	});
 });
 
 module.exports = {
-	createBlogHandler,
-	getSingleBlogHandler,
+	createTestHandler,
+	getSingleTestHandler,
 };

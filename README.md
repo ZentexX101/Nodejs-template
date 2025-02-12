@@ -141,3 +141,21 @@ It contains its own **model, controller, services, and routes**, maintaining a c
   <br>
 
 📁 /utils/ (Utility Functions)
+
+- **`catchAsync.js`** – Asynchronous error handler middleware
+
+  - Wraps asynchronous route handlers and middleware to catch errors automatically.
+  - Uses `Promise.resolve()` to handle both synchronous and asynchronous errors.
+  - Passes any caught errors to Express's built-in error-handling middleware via `next()`.
+  - Eliminates the need for repetitive `try...catch` blocks in async functions.
+
+- **`sendResponse.js`** – Standardized response handler
+
+  - Formats and sends JSON responses in a consistent structure.
+  - Takes the `res` (response object) and `data` (response details) as parameters.
+  - Sets the HTTP status code using `data.statusCode`.
+  - Returns a JSON object containing:
+    - **`success`** – Boolean indicating the operation's success or failure.
+    - **`message`** – Descriptive message about the response.
+    - **`meta`** – (Optional) Additional metadata for paginated responses or extra details.
+    - **`data`** – The actual response payload.
