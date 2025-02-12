@@ -74,13 +74,16 @@ npm start
 
 ```
 
-📁 /config/
+📁 /config/ (configuration files)
 
 - **`config.js`** – Centralized configuration file that loads and manages:
+
   - Environment variables (from `.env`)
   - Database connection settings
   - API keys and third-party service credentials
   - Application-wide constants
+
+   <br>
 
 📁 /middlewares/ (Middleware Functions)
 
@@ -105,3 +108,36 @@ npm start
   - Handles requests that don't match any defined routes.
   - Returns a 404 status code with a JSON response containing an error message.
   - The error message includes the requested path and the HTTP method used.
+
+   <br>
+
+📁 /modules/ test (Modular Structure)
+
+This module follows the **modular monolithic** pattern, ensuring that all related functionalities for the `Test` feature are encapsulated within a single directory.  
+It contains its own **model, controller, services, and routes**, maintaining a clean and scalable architecture.
+
+    📄 **Files in the `test` Module**
+
+- **`test.model.js`**
+
+  - Defines the Mongoose schema for `Test`.
+  - Manages the structure and validation of test-related data.
+
+- **`test.controller.js`**
+
+  - Handles HTTP requests and responses.
+  - Calls the service layer for business logic execution.
+
+- **`test.services.js`**
+
+  - Implements core business logic for the `Test` module.
+  - Interacts with the `test.model.js` to process data operations.
+
+- **`test.routes.js`**
+
+  - Defines API endpoints for the `Test` module.
+  - Connects routes with the corresponding controller functions.
+
+  <br>
+
+📁 /utils/ (Utility Functions)
