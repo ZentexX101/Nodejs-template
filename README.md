@@ -161,7 +161,7 @@ It contains its own **model, controller, services, and routes**, maintaining a c
     - **`meta`** – (Optional) Additional metadata for paginated responses or extra details.
     - **`data`** – The actual response payload.
 
-    - **`jwtHelper.js`** – JWT (JSON Web Token) utility functions
+- **`jwtHelper.js`** – JWT (JSON Web Token) utility functions
 
   - **Handles token generation and verification** for authentication and authorization.
   - Uses the secret key from `process.env.JWT_SECRET_KEY`.
