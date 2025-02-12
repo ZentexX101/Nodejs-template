@@ -60,7 +60,6 @@ npm start
 ```plaintext
 /src
 │-- config/          # Application configuration files (environment variables, DB settings)
-│-- controllers/     # Route controllers (Handles HTTP requests & responses)
 │-- middlewares/     # Express middlewares (Authentication, Logging, Error handling)
 │-- modules/ # Feature-based modules (Encapsulated routes, controllers, services, and models)
 │ ├── blog/ # Example module
@@ -80,6 +79,10 @@ npm start
 
 ```
 
-1️⃣ /config/
+📁 /config/
 
-- config.js # Application configuration files (environment variables, DB settings)
+- **`config.js`** – Centralized configuration file that loads and manages:
+  - Environment variables (from `.env`)
+  - Database connection settings
+  - API keys and third-party service credentials
+  - Application-wide constants
