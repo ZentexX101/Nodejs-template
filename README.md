@@ -62,16 +62,11 @@ npm start
 │-- config/          # Application configuration files (environment variables, DB settings)
 │-- middlewares/     # Express middlewares (Authentication, Logging, Error handling)
 │-- modules/ # Feature-based modules (Encapsulated routes, controllers, services, and models)
-│ ├── blog/ # Example module
-│ │ ├── blog.model.js # Mongoose schema for Blog
-│ │ ├── blog.controller.js # Handles HTTP requests & responses
-│ │ ├── blog.services.js # Business logic for Blog
-│ │ ├── blog.routes.js # API endpoints for Blog
-│ ├── user/ # Another module (Users management)
-│ │ ├── user.model.js
-│ │ ├── user.controller.js
-│ │ ├── user.services.js
-│ │ ├── user.routes.js
+│ ├── test/ # Example module
+│ │ ├── test.model.js # Mongoose schema for Test
+│ │ ├── test.controller.js # Handles HTTP requests & responses
+│ │ ├── test.services.js # Business logic for Test
+│ │ ├── test.routes.js # API endpoints for Blog
 │-- utils/           # Helper functions (Validation, Formatting, Error handlers)
 │-- server.js # Entry point (Initializes server)
 │-- package.json # Dependencies & scripts
@@ -86,3 +81,27 @@ npm start
   - Database connection settings
   - API keys and third-party service credentials
   - Application-wide constants
+
+📁 /middlewares/ (Middleware Functions)
+
+- **`errorHandler.js`** – Global error handler middleware
+
+  - Catches and formats errors with a standard JSON response
+  - Includes error details (description, code, and message)
+  - Logs errors to the console with a timestamp
+
+- **`authMiddleware.js`** – Authentication middleware
+
+  - Handles authentication and authorization of incoming requests.
+  - Verifies the presence and validity of a JWT (JSON Web Token) in the request headers.
+  - Responds with an unauthorized error if the token is absent or invalid.
+  - Checks the user's role against the required roles for the route.
+  - Denies access if the user's role is not permitted.
+  - Attaches the decoded user information to the request object if the token is valid.
+  - Allows the request to proceed when authentication and authorization checks pass.
+
+- **`notFound.js`** – Not Found middleware
+
+  - Handles requests that don't match any defined routes.
+  - Returns a 404 status code with a JSON response containing an error message.
+  - The error message includes the requested path and the HTTP method used.
