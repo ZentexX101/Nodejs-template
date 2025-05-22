@@ -22,6 +22,8 @@ module.exports = [
 			"no-console": "warn",
 			"no-redeclare": "warn",
 			eqeqeq: ["error", "always", { null: "ignore" }],
+			"no-extra-semi": "error",
+			"no-unreachable": "error",
 		},
 	},
 ];
