@@ -1,4 +1,10 @@
+const js = require("@eslint/js");
+
 module.exports = [
+	// Include ESLint's recommended rules
+	js.configs.recommended,
+
+	// Your custom rules
 	{
 		files: ["**/*.js"],
 		languageOptions: {
@@ -16,14 +22,26 @@ module.exports = [
 			js: require("@eslint/js"),
 		},
 		rules: {
-			"no-unused-vars": "warn",
-			"no-undef": ["error", { typeof: true }],
-			"no-unused-expressions": "warn",
+			"no-unused-vars": ["warn", { argsIgnorePattern: "^(req|res|next)$" }],
 			"no-console": "warn",
-			"no-redeclare": "warn",
-			eqeqeq: ["error", "always", { null: "ignore" }],
+			eqeqeq: ["error", "smart"],
 			"no-extra-semi": "error",
-			"no-unreachable": "error",
+			"no-self-compare": "error",
+			"no-template-curly-in-string": "error",
+			"no-unassigned-vars": "warn",
+			"no-useless-assignment": "warn",
+			camelcase: [
+				"warn",
+				{
+					properties: "always",
+					ignoreDestructuring: true,
+					ignoreImports: true,
+					ignoreGlobals: true,
+				},
+			],
+			"no-empty": "warn",
+			"no-empty-function": "error",
+			"prefer-const": "error",
 		},
 	},
 ];
